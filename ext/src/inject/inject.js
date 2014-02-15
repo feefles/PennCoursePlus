@@ -18,7 +18,7 @@ chrome.extension.sendMessage({}, function(response) {
 			$(courseList).each(function(){
 				var courseId = $(this).find('td:nth-child(1)').text();
 				$(this).append("<td>"+courseId+"</td>");
-				$(this).append("<td>"+courseId+"</td>");
+				w$(this).append("<td>"+courseId+"</td>");
 
 			});
 		/*var c = $(".pitDarkDataTable tr:first td").length;
