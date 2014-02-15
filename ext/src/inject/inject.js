@@ -10,12 +10,16 @@ chrome.extension.sendMessage({}, function(response) {
 			console.log("hello world");
 
 
-			$(".pitDarkDataTable tr:first").append('<td style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Rating</td>');
+			$(".pitDarkDataTable tr:first").append('<td style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</td>');
+			$(".pitDarkDataTable tr:first").append('<td style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</td>');
+
 			var courseList = $('.pitDarkDataTable').children().children().next();
 
 			$(courseList).each(function(){
 				var courseId = $(this).find('td:nth-child(1)').text();
 				$(this).append("<td>"+courseId+"</td>");
+				$(this).append("<td>"+courseId+"</td>");
+
 			});
 		/*var c = $(".pitDarkDataTable tr:first td").length;
 		$(".pitDarkDataTable tr:first").append("<td><Col "+(c+1)+"</td>");
