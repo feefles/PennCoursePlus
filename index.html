@@ -2,12 +2,11 @@
 <html>
 <head>
     <title>TouchIn</title>
-    <link href="https://s3.amazonaws.com/Togethr.io/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- <link href="https://s3.amazonaws.com/Togethr.io/bootstrap.min.css" rel="stylesheet" media="screen"> -->
 </head>
 
 <body>
      <input id="testbtn" type = "button"> Get reviews</button>
-     <div id = "hi"> </div>
      <!-- hello -->
  </body>
 
@@ -18,6 +17,7 @@
 <script>
 // alert('hello');
 $(function() {
+    // VUFSbua5RgR7Ers7wrivV0MklE48sP
     // var getRating = function() {
     //     $.ajax({
     //         type: 'GET',
@@ -29,22 +29,41 @@ $(function() {
     //     });
     // };
 
-    $('#hi').load("http://penncoursereview.com/course/CIS-120 #div.grid_1 scorebox > p" );
+    // $('#hi').load("http://penncoursereview.com/course/CIS-120 #div.grid_1 scorebox > p" );
     var fn = function() {
         alert('hello');
     };
 
     $('#testbtn').click(function() {
-        // $('#result').load('')
-       $('#')
-        // $.ajax({
-        //     type: 'GET',
-        //     url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120'+'?token=public',
-        //     // data: {query: },
-        //     dataType: 'json'
-        // }).done(function(data) {
-        //     console.log(data['result']['courses'][1]['name']);
-        // });
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://api.penncoursereview.com/v1/depts/cis/reviews?token=VUFSbua5RgR7Ers7wrivV0MklE48sP',
+            // data: {query: },
+            dataType: 'json'
+        }).done(function(data) {
+            console.log(data);
+            var cl = "CIS-502";
+            var classes = data.result.values;
+            var qualityavg = 0;
+            var difficultyavg = 0;
+            var numcourses = 0;
+            classes.forEach(function(name) {
+                var alias = name.section.primary_alias.trim().slice(0,-4);
+                alias = alias.replace(/\s/g,''); 
+                // console.log(alias);
+                if (cl == alias) {
+                    qualityavg+=parseInt(name.ratings.rCourseQuality);
+                    difficultyavg+=parseInt(name.ratings.rDifficulty);
+                    numcourses++;
+                }
+
+            });
+            qualityavg = qualityavg/numcourses;
+            difficultyavg= difficultyavg/numcourses;
+            console.log(qualityavg);
+            console.log(difficultyavg);
+        });
     });
 });
 

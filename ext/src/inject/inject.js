@@ -1,5 +1,4 @@
 
-
 chrome.extension.sendMessage({}, function(response) {
 
     // var getRating = function(course) {
@@ -39,17 +38,39 @@ chrome.extension.sendMessage({}, function(response) {
 					// $(this).append("<td>"+courseId+"</td>");
 					// $(this).append("<td>"+courseId+"</td>");
 
-					var split = courseId.trim().slice(0,-4);
-					split = split.replace(/\s/g,''); 
+					var courseId = courseId.trim();
+					courseId = courseId.slice(0,-4).replace(/\s/g,''); 
+					courseDept = courseId.slice(0,3).toLowerCase();
 					// split = getRating(split);
 					$.ajax({
 						type: 'GET',
-						url: 'http://api.penncoursereview.com/v1/coursehistories/'+split+'?token=public',
+						url: 'http://api.penncoursereview.com/v1/depts/'+courseDept+'/reviews?token=VUFSbua5RgR7Ers7wrivV0MklE48sP',
 						dataType: 'json'
 					}).done(function(data) {
-						var info = data['result']['courses'][1]['name'];
-						 $(that).append("<td>"+info+"</td>");
-					// $(this).append("<td>"+courseId+"</td>");
+						// console.log(data)
+						var classes = data.result.values;
+						var qualityavg = 0;
+						var difficultyavg = 0;
+						var numcourses = 0;
+						classes.forEach(function(name) {
+							var alias = name.section.primary_alias.trim().slice(0,-4);
+							alias = alias.replace(/\s/g,'');
+							if (courseId == alias) {
+								 qualityavg+=parseInt(name.ratings.rCourseQuality);
+                   				 difficultyavg+=parseInt(name.ratings.rDifficulty);
+                   				 numcourses++;
+							}
+						});
+						qualityavg = (qualityavg/numcourses).toFixed(2);
+						difficultyavg = (difficultyavg/numcourses).toFixed(2);
+						if (isNaN(qualityavg)) {
+							qualityavg = "N/A"
+						}
+						if (isNaN(difficultyavg)) {
+							difficultyavg = "N/A"
+						}
+						 $(that).append("<td>"+qualityavg+"</td>");
+						$(that).append("<td>"+difficultyavg+"</td>");
 					// $(this).append("<td>"+courseId+"</td>");
 					});
 				});
@@ -58,6 +79,8 @@ chrome.extension.sendMessage({}, function(response) {
 			$(".pitDarkDataTable tr:gt(0)").append("<td>Col</td>");*/
 		}
 
+
+      $('.pitDarkDataTable').tablesorter({});
 
 			// ----------------------------------------------------------
 

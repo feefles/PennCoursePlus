@@ -19,7 +19,7 @@
         "https://pennintouch.apps.upenn.edu/*"
       ],
       "css": [
-        "src/inject/inject.css"
+        "css/jq.css", "css/style.css", "src/inject/inject.css"
       ]
     },
     {
@@ -27,7 +27,7 @@
         "https://pennintouch.apps.upenn.edu/*"
       ],
       "js": [
-        "js/jquery/jquery.min.js", "src/inject/inject.js"
+        "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "src/inject/inject.js"
       ]
     }
   ]
