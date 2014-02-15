@@ -7,6 +7,7 @@
 
 <body>
      <input id="testbtn" type = "button"> Get reviews</button>
+     <div id = "hi"> </div>
      <!-- hello -->
  </body>
 
@@ -28,19 +29,22 @@ $(function() {
     //     });
     // };
 
+    $('#hi').load("http://penncoursereview.com/course/CIS-120 #div.grid_1 scorebox > p" );
     var fn = function() {
         alert('hello');
     };
 
     $('#testbtn').click(function() {
-        $.ajax({
-            type: 'GET',
-            url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120'+'?token=public',
-            // data: {query: },
-            dataType: 'json'
-        }).done(function(data) {
-            console.log(data['result']['courses'][1]['name']);
-        });
+        // $('#result').load('')
+       $('#')
+        // $.ajax({
+        //     type: 'GET',
+        //     url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120'+'?token=public',
+        //     // data: {query: },
+        //     dataType: 'json'
+        // }).done(function(data) {
+        //     console.log(data['result']['courses'][1]['name']);
+        // });
     });
 });
 
