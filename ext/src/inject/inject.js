@@ -25,18 +25,18 @@ var readyStateCheckInterval = setInterval(function() {
 
 			if ($(".pitDarkDataTable").length > 0) {
 
-				console.log("hello world");
-
 
 				$('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
 
 
 				$('.pitDarkDataTable tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
 
-
 				$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</th>');
 				$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
 				$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Professor</th>');
+
+				/*$(".pitDarkDataTable thead tr").append('<th>Difficulty</th>');
+				$(".pitDarkDataTable thead tr").append('<th>Quality</th>');*/
 
 				var courseList = $('.pitDarkDataTable tbody').children();
 
@@ -104,8 +104,16 @@ var readyStateCheckInterval = setInterval(function() {
 				});
 				});
 
-           $('.pitDarkDataTable').tablesorter({});
+          /* $('.pitDarkDataTable').tablesorter({
+           	    theme : 'blue',
+				format: function(s) { 
+            // format your data for normalization 
+            return s.toLowerCase().replace(/NA/,0); 
+        }           });
 
+           $('.tablesorter-headerRow').css("color", "black");
+
+*/
 		}
 		}
 	}
