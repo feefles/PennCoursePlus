@@ -46,7 +46,7 @@ var readyStateCheckInterval = setInterval(function() {
 
 					var courseId = courseId.trim();
 					courseId = courseId.slice(0,-4).replace(/\s/g,''); 
-					courseDept = courseId.slice(0,3).toLowerCase();
+					courseDept = courseId.slice(0,-4).toLowerCase();
 					// split = getRating(split);
 					$.ajax({
 						type: 'GET',
