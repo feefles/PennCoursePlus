@@ -95,6 +95,9 @@ chrome.extension.sendMessage({}, function(response) {
 			$(courseList).each(function(){
 				var that = this;
 				var courseId = $(this).find('td:nth-child(1)').text();
+				$(this).append("<td>"+courseId+"</td>");
+				$(this).append("<td>"+courseId+"</td>");
+
 				var split = courseId.trim().slice(0,-4);
 				split = split.replace(/\s/g,''); 
 				// split = getRating(split);
