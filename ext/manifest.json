@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "https://pennintouch.apps.upenn.edu/*"
       ],
       "css": [
         "src/inject/inject.css"
@@ -24,10 +24,10 @@
     },
     {
       "matches": [
-        "https://www.google.com/*"
+        "https://pennintouch.apps.upenn.edu/*"
       ],
       "js": [
-        "src/inject/inject.js"
+        "js/jquery/jquery.min.js", "src/inject/inject.js"
       ]
     }
   ]
