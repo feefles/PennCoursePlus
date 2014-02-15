@@ -43,26 +43,41 @@ $(function() {
             dataType: 'json'
         }).done(function(data) {
             console.log(data);
-            var cl = "CIS-502";
+            var cl = "CIS-320";
+            var inst = "rajiv c gandhi";
             var classes = data.result.values;
             var qualityavg = 0;
             var difficultyavg = 0;
             var numcourses = 0;
+
+            var prof_lookup = 0;
+            var numprofcourses = 0;
+
             classes.forEach(function(name) {
                 var alias = name.section.primary_alias.trim().slice(0,-4);
                 alias = alias.replace(/\s/g,''); 
                 // console.log(alias);
+                var instructor = name.instructor.name.toLowerCase();
+                console.log(instructor);
+                if (instructor === inst) {
+
+                    prof_lookup += parseFloat(name.ratings.rInstructorQuality);
+                    console.log(name);
+                    numprofcourses++;
+                }
                 if (cl == alias) {
-                    qualityavg+=parseInt(name.ratings.rCourseQuality);
-                    difficultyavg+=parseInt(name.ratings.rDifficulty);
+                    qualityavg+=parseFloat(name.ratings.rCourseQuality);
+                    difficultyavg+=parseFloat(name.ratings.rDifficulty);
                     numcourses++;
                 }
 
             });
-            qualityavg = qualityavg/numcourses;
+            qualityavg =qualityavg/numcourses;
             difficultyavg= difficultyavg/numcourses;
+            prof_lookup = prof_lookup/numprofcourses;
             console.log(qualityavg);
             console.log(difficultyavg);
+            console.log(prof_lookup);
         });
     });
 });
