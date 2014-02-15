@@ -17,22 +17,31 @@
 <script>
 // alert('hello');
 $(function() {
-    var getRating = function() {
-        $.ajax({
-            type: 'GET',
-            url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120-001'+'?token=public',
-            // data: {query: },
-            dataType: 'json'
-        }).done(function(data) {
-            console.log(data['result']['courses'][1]);
-        });
-    };
+    // var getRating = function() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120'+'?token=public',
+    //         // data: {query: },
+    //         dataType: 'json'
+    //     }).done(function(data) {
+    //         return data['result']['courses'][1]['name'];
+    //     });
+    // };
 
     var fn = function() {
         alert('hello');
     };
 
-    $('#testbtn').click(getRating);
+    $('#testbtn').click(function() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120'+'?token=public',
+            // data: {query: },
+            dataType: 'json'
+        }).done(function(data) {
+            console.log(data['result']['courses'][1]['name']);
+        });
+    });
 });
 
 
