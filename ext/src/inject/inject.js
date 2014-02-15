@@ -12,13 +12,13 @@ chrome.extension.sendMessage({}, function(response) {
     // )};
 
 
-	var readyStateCheckInterval = setInterval(function() {
-		if (window.location.href.indexOf("pennintouch.apps.upenn.edu") > -1) {
+var readyStateCheckInterval = setInterval(function() {
+	if (window.location.href.indexOf("pennintouch.apps.upenn.edu") > -1) {
 
-  
-	  
-			if (document.readyState === "complete") {
-				clearInterval(readyStateCheckInterval);
+
+
+		if (document.readyState === "complete") {
+			clearInterval(readyStateCheckInterval);
 
 			// ----------------------------------------------------------
 			// This part of the script triggers when page is done loading
@@ -28,16 +28,21 @@ chrome.extension.sendMessage({}, function(response) {
 				console.log("hello world");
 
 
-				$(".pitDarkDataTable tr:first").append('<td style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</td>');
-				$(".pitDarkDataTable tr:first").append('<td style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</td>');
+				$('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
 
-				var courseList = $('.pitDarkDataTable').children().children().next();
+
+				$('.pitDarkDataTable tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
+
+
+				$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</th>');
+				$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
+
+				var courseList = $('.pitDarkDataTable tbody').children();
 
 				$(courseList).each(function(){
 					var that = this;
 					var courseId = $(this).find('td:nth-child(1)').text();
-					// $(this).append("<td>"+courseId+"</td>");
-					// $(this).append("<td>"+courseId+"</td>");
+
 
 					var courseId = courseId.trim();
 					courseId = courseId.slice(0,-4).replace(/\s/g,''); 
@@ -57,54 +62,32 @@ chrome.extension.sendMessage({}, function(response) {
 							var alias = name.section.primary_alias.trim().slice(0,-4);
 							alias = alias.replace(/\s/g,'');
 							if (courseId == alias) {
-								 qualityavg+=parseInt(name.ratings.rCourseQuality);
-                   				 difficultyavg+=parseInt(name.ratings.rDifficulty);
-                   				 numcourses++;
+								qualityavg+=parseInt(name.ratings.rCourseQuality);
+								difficultyavg+=parseInt(name.ratings.rDifficulty);
+								numcourses++;
 							}
 						});
 						qualityavg = (qualityavg/numcourses).toFixed(2);
 						difficultyavg = (difficultyavg/numcourses).toFixed(2);
 						if (isNaN(qualityavg)) {
-							qualityavg = "N/A"
+							qualityavg = "N/A";
 						}
 						if (isNaN(difficultyavg)) {
-							difficultyavg = "N/A"
+							difficultyavg = "N/A";
 						}
-						 $(that).append("<td>"+qualityavg+"</td>");
+						$(that).append("<td>"+qualityavg+"</td>");
 						$(that).append("<td>"+difficultyavg+"</td>");
-					// $(this).append("<td>"+courseId+"</td>");
-					});
 				});
-			/*var c = $(".pitDarkDataTable tr:first td").length;
-			$(".pitDarkDataTable tr:first").append("<td><Col "+(c+1)+"</td>");
-			$(".pitDarkDataTable tr:gt(0)").append("<td>Col</td>");*/
+				});
+
 		}
-//////////////////
-		if (document.readyState === "complete") {
-			clearInterval(readyStateCheckInterval);
-
-		// ----------------------------------------------------------
-		// This part of the script triggers when page is done loading
 
 
 
-		if ($(".pitDarkDataTable").length > 0) {
 
 
-		$('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
 
-		
-		//$('.pitDarkDataTable').wrapAll( "<tbody />");
-
-		$('.pitDarkDataTable tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
-
-
-		$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</th>');
-		$(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
-
-		var courseList = $('.pitDarkDataTable tbody').children();
-		$(courseList).each(function(){
-			var courseId = $(this).find('td:first').text();
+			/*var courseId = $(this).find('td:first').text();
 			$(this).append("<td>"+courseId+"</td>");
 			$(this).append("<td>"+courseId+"</td>");
 
@@ -120,10 +103,10 @@ chrome.extension.sendMessage({}, function(response) {
 					var info = data.result.courses.name;
                     $(that).append("<td>"+info+"</td>");
 	
-//////////////
+                    ////////////// */
 
 
-      $('.pitDarkDataTable').tablesorter({});
+                    $('.pitDarkDataTable').tablesorter({});
 
 			// ----------------------------------------------------------
 
