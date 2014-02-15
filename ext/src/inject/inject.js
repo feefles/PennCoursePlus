@@ -90,6 +90,8 @@ chrome.extension.sendMessage({}, function(response) {
 
 
 		$('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
+
+		
 		//$('.pitDarkDataTable').wrapAll( "<tbody />");
 
 		$('.pitDarkDataTable tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
