@@ -1,4 +1,6 @@
 $(document).ready(function()) {
+
+    
     function getRating(instructor,course) {
 
 
