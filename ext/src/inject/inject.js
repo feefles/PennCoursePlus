@@ -45,6 +45,7 @@ var readyStateCheckInterval = setInterval(function() {
 					var courseId = $(this).find('td:nth-child(1)').text();
 					var courseType = $(this).find('td:nth-child(3)').text();
 					var inst = $(this).find('td:nth-child(4)').text().toLowerCase();
+					inst = inst.replace(/\./g, '');
 
 
 
@@ -67,6 +68,8 @@ var readyStateCheckInterval = setInterval(function() {
 							numprofcourses = 0;
 							classes.forEach(function(name) {
 								var instructor = name.instructor.name.toLowerCase();
+								instructor = instructor.replace(/\./g, '');
+
 								if (instructor.trim() == inst.trim()) {
 									profavg += parseFloat(name.ratings.rInstructorQuality);
                    					numprofcourses++;

@@ -44,7 +44,8 @@ $(function() {
         }).done(function(data) {
             console.log(data);
             var cl = "CIS-320";
-            var inst = "rajiv c gandhi";
+            var inst = "rajiv c. gandhi";
+            inst = inst.replace(/\./g, '');
             var classes = data.result.values;
             var qualityavg = 0;
             var difficultyavg = 0;
@@ -58,7 +59,10 @@ $(function() {
                 alias = alias.replace(/\s/g,''); 
                 // console.log(alias);
                 var instructor = name.instructor.name.toLowerCase();
+                instructor = instructor.replace(/\./g, '');
                 console.log(instructor);
+                console.log(inst);
+
                 if (instructor === inst) {
 
                     prof_lookup += parseFloat(name.ratings.rInstructorQuality);
@@ -75,8 +79,8 @@ $(function() {
             qualityavg =qualityavg/numcourses;
             difficultyavg= difficultyavg/numcourses;
             prof_lookup = prof_lookup/numprofcourses;
-            console.log(qualityavg);
-            console.log(difficultyavg);
+            // console.log(qualityavg);
+            // console.log(difficultyavg);
             console.log(prof_lookup);
         });
     });
