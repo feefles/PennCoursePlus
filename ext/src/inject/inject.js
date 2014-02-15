@@ -54,10 +54,10 @@ var readyStateCheckInterval = setInterval(function() {
 					// split = getRating(split);
 					$.ajax({
 						type: 'GET',
-						url: 'http://api.penncoursereview.com/v1/depts/'+courseDept+'/reviews?token=VUFSbua5RgR7Ers7wrivV0MklE48sP',
+						url: 'http://api.penncoursereview.com/v1/depts/'+courseDept+'/reviews?token=qL_UuCVxRBUmjWbkCdI554grLjRMPY',
 						dataType: 'json'
 					}).done(function(data) {
-						// if (courseType.trim() !== 'Recitation') {
+						if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
 							var classes = data.result.values;
 							var qualityavg = 0;
 							var difficultyavg = 0;
@@ -94,12 +94,16 @@ var readyStateCheckInterval = setInterval(function() {
 							if (isNaN(profavg)) {
 								profavg = "N/A";
 							}
-							if (courseType.trim() !== "Recitation") {
+							
 								$(that).append("<td>"+difficultyavg+"</td>");
 								$(that).append("<td>"+qualityavg+"</td>");
 								$(that).append("<td>"+profavg+ "</td>");
 						}
-						// }
+						else {
+						$(that).append("<td>"+" "+"</td>");
+						$(that).append("<td>"+" "+"</td>");
+						$(that).append("<td>"+" "+ "</td>");
+						}
 					
 				});
 				});
