@@ -80,6 +80,8 @@ var readyStateCheckInterval = setInterval(function() {
 				});
 				});
 
+           $('.pitDarkDataTable').tablesorter({});
+
 		}
 
 
@@ -106,7 +108,6 @@ var readyStateCheckInterval = setInterval(function() {
                     ////////////// */
 
 
-                    $('.pitDarkDataTable').tablesorter({});
 
 			// ----------------------------------------------------------
 
