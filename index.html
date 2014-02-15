@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TouchIn</title>
+    <link href="https://s3.amazonaws.com/Togethr.io/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+
+<body>
+     <input id="testbtn" type = "button"> Get reviews</button>
+     <!-- hello -->
+ </body>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+
+<script>
+// alert('hello');
+$(function() {
+    var getRating = function() {
+        $.ajax({
+            type: 'GET',
+            url: 'http://api.penncoursereview.com/v1/coursehistories/'+'cis-120-001'+'?token=public',
+            // data: {query: },
+            dataType: 'json'
+        }).done(function(data) {
+            console.log(data['result']['courses'][1]);
+        });
+    };
+
+    var fn = function() {
+        alert('hello');
+    };
+
+    $('#testbtn').click(getRating);
+});
+
+
+</script>
