@@ -42,6 +42,7 @@ var readyStateCheckInterval = setInterval(function() {
 				$(courseList).each(function(){
 					var that = this;
 					var courseId = $(this).find('td:nth-child(1)').text();
+					var courseType = $(this).find('td:nth-child(3)').text();
 
 
 					var courseId = courseId.trim();
@@ -75,8 +76,10 @@ var readyStateCheckInterval = setInterval(function() {
 						if (isNaN(difficultyavg)) {
 							difficultyavg = "N/A";
 						}
-						$(that).append("<td>"+qualityavg+"</td>");
+						if (courseType.trim() !== "Recitation") {
 						$(that).append("<td>"+difficultyavg+"</td>");
+						$(that).append("<td>"+qualityavg+"</td>");
+					}
 				});
 				});
 
