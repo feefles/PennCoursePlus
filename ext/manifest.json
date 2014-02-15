@@ -19,7 +19,7 @@
         "https://pennintouch.apps.upenn.edu/*"
       ],
       "css": [
-        "css/jq.css", "css/style.css", "src/inject/inject.css"
+        "css/jq.css", "css/theme.default.css", "css/style.css", "src/inject/inject.css"
       ]
     },
     {
