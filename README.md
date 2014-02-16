@@ -10,3 +10,5 @@ May run slowly, depending on internet speed. Could try reloading page
 
 This is not a substitute for PCR, but a nice addition to enhance your course 
 selection process. 
+
+![Alt text](/action.png "In action")
