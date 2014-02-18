@@ -19,6 +19,7 @@ To implement
     4. Make it easy to find easy classes that fulfill requirements
     5. Quality to ease ratio
     6. Fix "NA" rating
+    7. double countring for sectors and foundation
 */
 
     var readyStateCheckInterval = setInterval(function() {
@@ -127,19 +128,23 @@ To implement
 
                     $(".pitDarkDataTable").tablesorter({
                         headers: {
-                            9: {
+                            7: {
+                                sorter: "false",
+                            },
+                            8: {
                                 sorter: "digit",
                                 string: "bottom"
                             }, // sort empty cells to the top
-                            10: {
+                            9: {
                                 sorter: "digit",
                                 string: "bottom"
                             }, // non-numeric content is treated as a MAX value
-                            11: {
+                            10: {
                                 sorter: "digit",
                                 string: "bottom"
                             } // non-numeric content is treated as a MIN value
-                        }
+                        },
+                        theme: "default"
                     });
 
 

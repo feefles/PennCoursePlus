@@ -1,32 +1,29 @@
 {
-  "name": "PennCoursePlus",
-  "version": "0.0.1",
-  "manifest_version": 2,
-  "description": "This extension allows you to see reviews from PennCourseReview directly in Penn InTouch",
-  "homepage_url": "http://penncourseplus.com",
-  "icons": {
-    "128": "icons/icon128.png"
-  },
-  "default_locale": "en",
-  "permissions": [
-    "https://pennintouch.apps.upenn.edu/*"
-  ],
-  "content_scripts": [
-    {
-      "matches": [
-        "https://pennintouch.apps.upenn.edu/*"
-      ],
-      "css": [
-        "css/jq.css", "css/style.css", "src/inject/inject.css"
-      ]
+    "name": "PennCoursePlus",
+    "version": "0.0.1",
+    "manifest_version": 2,
+    "description": "This extension allows you to see reviews from PennCourseReview directly in Penn InTouch",
+    "homepage_url": "http://penncourseplus.com",
+    "icons": {
+        "128": "icons/icon128.png"
     },
-    {
-      "matches": [
+    "default_locale": "en",
+    "permissions": [
         "https://pennintouch.apps.upenn.edu/*"
-      ],
-      "js": [
-        "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "src/inject/inject.js"
-      ]
-    }
-  ]
+    ],
+    "content_scripts": [{
+        "matches": [
+            "https://pennintouch.apps.upenn.edu/*"
+        ],
+        "css": [
+            "css/jq.css", "css/style.css", "src/inject/inject.css", "src/inject/theme.default.css"
+        ]
+    }, {
+        "matches": [
+            "https://pennintouch.apps.upenn.edu/*"
+        ],
+        "js": [
+            "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "src/inject/inject.js"
+        ]
+    }]
 }
