@@ -94,13 +94,13 @@ To implement
                                 difficultyavg = (difficultyavg / numcourses).toFixed(2);
                                 profavg = (profavg / numprofcourses).toFixed(2);
                                 if (isNaN(qualityavg)) {
-                                    qualityavg = "0";
+                                    qualityavg = "N/A";
                                 }
                                 if (isNaN(difficultyavg)) {
-                                    difficultyavg = "0";
+                                    difficultyavg = "N/A";
                                 }
                                 if (isNaN(profavg)) {
-                                    profavg = "0";
+                                    profavg = "N/A";
                                 }
 
 
@@ -108,9 +108,9 @@ To implement
                                 $(that).append("<td>" + qualityavg + "</td>");
                                 $(that).append("<td>" + profavg + "</td>");
                             } else {
-                                $(that).append("<td>" + 0 + "</td>");
-                                $(that).append("<td>" + 0 + "</td>");
-                                $(that).append("<td>" + 0 + "</td>");
+                                $(that).append("<td>" + '' + "</td>");
+                                $(that).append("<td>" + '' + "</td>");
+                                $(that).append("<td>" + '' + "</td>");
                             }
 
                         });
