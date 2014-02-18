@@ -16,6 +16,9 @@ To implement
 	1. Link to PCR site
     2. Remove links from default headers in table
     3. Fix styling
+    4. Make it easy to find easy classes that fulfill requirements
+    5. Quality to ease ratio
+    6. Fix "NA" rating
 */
 
     var readyStateCheckInterval = setInterval(function() {
@@ -122,7 +125,22 @@ To implement
 
 
 
-                    $(".pitDarkDataTable").tablesorter();
+                    $(".pitDarkDataTable").tablesorter({
+                        headers: {
+                            9: {
+                                sorter: "digit",
+                                string: "bottom"
+                            }, // sort empty cells to the top
+                            10: {
+                                sorter: "digit",
+                                string: "bottom"
+                            }, // non-numeric content is treated as a MAX value
+                            11: {
+                                sorter: "digit",
+                                string: "bottom"
+                            } // non-numeric content is treated as a MIN value
+                        }
+                    });
 
 
                 }
