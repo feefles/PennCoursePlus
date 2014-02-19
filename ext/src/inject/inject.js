@@ -83,7 +83,15 @@ To implement
                         courseId = courseId.slice(0, -4).replace(/\s/g, '');
                         courseDept = courseId.slice(0, -4).toLowerCase();
                         // split = getRating(split);
-                        if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
+                        if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
+
+                            console.log('yo');
+                            $(that).append("<td>" + '' + "</td>");
+                            $(that).append("<td>" + '' + "</td>");
+                            $(that).append("<td>" + '' + "</td>");
+
+
+                        } else {
 
                             $.ajax({
                                 type: 'GET',
@@ -136,12 +144,7 @@ To implement
                                 $(that).append("<td>" + qualityavg + "</td>");
                                 $(that).append("<td>" + profavg + "</td>");
 
-
                             });
-                        } else {
-                            $(that).append("<td>" + '' + "</td>");
-                            $(that).append("<td>" + '' + "</td>");
-                            $(that).append("<td>" + '' + "</td>");
                         }
 
 
