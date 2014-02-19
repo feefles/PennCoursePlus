@@ -148,7 +148,7 @@ To implement
                                 string: "bottom"
                             } // non-numeric content is treated as a MIN value
                         },
-                        // theme: "dropbox"
+                        // theme: "default"
                     });
 
 
