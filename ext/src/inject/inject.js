@@ -37,19 +37,23 @@ To implement
 
                     $('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
 
+                    $('thead').children().children().children().children().unwrap().wrap("<span/>");
 
-                    $('.pitDarkDataTable tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
+
+                    $('.pitDarkDataTable').children().unwrap().wrapAll("<table class='tablesorter pit'/>");
+
+                    $('.pit tr:nth-child(2)').nextUntil(".pit tr:last").andSelf().wrapAll("<tbody/>");
 
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Difficulty</th>');
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Professor</th>');
 
-                    $(".pitDarkDataTable thead tr").append('<th>Difficulty</th>');
-                    $(".pitDarkDataTable thead tr").append('<th>Quality</th>');
-                    $(".pitDarkDataTable thead tr").append('<th>Professor</th>');
+                    $(".pit thead tr").append('<th>Difficulty</th>');
+                    $(".pit thead tr").append('<th>Quality</th>');
+                    $(".pit thead tr").append('<th>Professor</th>');
 
 
-                    var courseList = $('.pitDarkDataTable tbody').children();
+                    var courseList = $('.pit tbody').children();
 
                     $(courseList).each(function() {
 
@@ -126,7 +130,7 @@ To implement
 
 
 
-                    $(".pitDarkDataTable").tablesorter({
+                    $(".pit").tablesorter({
                         headers: {
                             7: {
                                 sorter: "false",
@@ -144,7 +148,7 @@ To implement
                                 string: "bottom"
                             } // non-numeric content is treated as a MIN value
                         },
-                        theme: "default"
+                        // theme: "dropbox"
                     });
 
 
