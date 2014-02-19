@@ -51,11 +51,17 @@ To implement
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Professor</th>');
 
                     $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
-                    $(".pit thead tr").append('<th>Quality</th>');
-                    $(".pit thead tr").append('<th>Professor</th>');
+                    $(".pit thead tr").append('<th id="quality">Quality</th>');
+                    $(".pit thead tr").append('<th id="professor">Professor</th>');
 
+                    $('#professor').tooltipster({
+                        content: "Average quality of professor. Higher is better."
+                    });
+                    $('#quality').tooltipster({
+                        content: "Average quality of course. Higher is better."
+                    });
                     $('#difficulty').tooltipster({
-                        content: "Awesome title!"
+                        content: "Difficulty of course. Lower is better."
                     });
 
                     var courseList = $('.pit tbody').children();
