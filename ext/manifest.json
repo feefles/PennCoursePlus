@@ -1,6 +1,6 @@
 {
     "name": "PennCoursePlus",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "manifest_version": 2,
     "description": "This extension allows you to see reviews from PennCourseReview directly in Penn InTouch",
     "homepage_url": "http://penncourseplus.com",
@@ -16,14 +16,14 @@
             "https://pennintouch.apps.upenn.edu/*"
         ],
         "css": [
-            "src/inject/inject.css", "css/theme.default.css"
+            "src/inject/inject.css", "css/theme.default.css", "css/tooltipster.css", "css/tooltipster-light.css"
         ]
     }, {
         "matches": [
             "https://pennintouch.apps.upenn.edu/*"
         ],
         "js": [
-            "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "src/inject/inject.js"
+            "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "js/jquery/tooltip.js", "src/inject/inject.js"
         ]
     }]
 }

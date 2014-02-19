@@ -20,6 +20,7 @@ To implement
     5. Quality to ease ratio
     6. Fix "NA" rating
     7. double countring for sectors and foundation
+    8. Make PCR headings more clear
 */
 
     var readyStateCheckInterval = setInterval(function() {
@@ -48,10 +49,13 @@ To implement
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Professor</th>');
 
-                    $(".pit thead tr").append('<th>Difficulty</th>');
+                    $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
                     $(".pit thead tr").append('<th>Quality</th>');
                     $(".pit thead tr").append('<th>Professor</th>');
 
+                    $('#difficulty').tooltipster({
+                        content: "Awesome title!"
+                    });
 
                     var courseList = $('.pit tbody').children();
 
@@ -63,6 +67,9 @@ To implement
                         var inst = $(this).find('td:nth-child(4)').text().toLowerCase();
                         inst = inst.replace(/\./g, '');
 
+                        //$('body').append('<div id="pageTwo"></div>');
+
+                        // $("#pageTwo").load("https://pennintouch.apps.upenn.edu/pennInTouch/jsp/fast2.do?fastButtonId=R1U83DVL");
 
                         var courseId = courseId.trim();
                         courseId = courseId.slice(0, -4).replace(/\s/g, '');
@@ -138,7 +145,7 @@ To implement
                             8: {
                                 sorter: "digit",
                                 string: "bottom"
-                            }, // sort empty cells to the top
+                            },
                             9: {
                                 sorter: "digit",
                                 string: "bottom"
