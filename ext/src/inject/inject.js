@@ -53,11 +53,11 @@ To implement
 
                     $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
                     $(".pit thead tr").append('<th id="quality">Quality</th>');
-                    $(".pit thead tr").append('<th id="professor">Professor</th>');
+                    //$(".pit thead tr").append('<th id="professor">Professor</th>');
 
-                    $('#professor').tooltipster({
-                        content: "Average quality of professor; higher is better."
-                    });
+                    //$('#professor').tooltipster({
+                    //  content: "Average quality of professor; higher is better."
+                    //});
                     $('#quality').tooltipster({
                         content: "Average quality of course; higher is better."
                     });
@@ -88,7 +88,7 @@ To implement
 
                             $(that).append("<td>" + '' + "</td>");
                             $(that).append("<td>" + '' + "</td>");
-                            $(that).append("<td>" + '' + "</td>");
+                            // $(that).append("<td>" + '' + "</td>");
 
 
                         } else {
@@ -137,10 +137,10 @@ To implement
                                 sorter: "digit",
                                 string: "bottom"
                             }, // non - numeric content is treated as a MAX value
-                            10: {
-                                sorter: "digit",
-                                string: "bottom"
-                            } // non-numeric content is treated as a MIN value
+                            //  10: {
+                            //    sorter: "digit",
+                            //  string: "bottom"
+                            // } // non-numeric content is treated as a MIN value
                         },
                         // theme: "default"
                     });
