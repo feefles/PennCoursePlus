@@ -65,6 +65,7 @@ To implement
                         content: "Difficulty of course; lower is better."
                     });
 
+                    //fetches all courses in the course table
                     var courseList = $('.pit tbody').children();
 
 
@@ -98,7 +99,6 @@ To implement
                                 function(ratings) {
                                     $(that).append("<td>" + ratings[courseId].difficulty + "</td>");
                                     $(that).append("<td>" + ratings[courseId].quality + "</td>");
-                                    console.log('getting info');
 
                                 });
 
@@ -121,8 +121,8 @@ To implement
 
 
                     });
-                    console.log('tablesort');
 
+                    //calls the tablesorter jquery plugin to allow for sorting of the course results
 
                     $(".pit").tablesorter({
                         headers: {
