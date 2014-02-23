@@ -13,7 +13,7 @@ chrome.extension.sendMessage({}, function(response) {
 
     /*
 To implement
-	1. Link to PCR site
+    1. Link to PCR site
     2. Remove links from default headers in table
     3. Fix styling
     4. Make it easy to find easy classes that fulfill requirements
@@ -37,6 +37,7 @@ To implement
 
                 if ($(".pitDarkDataTable").length > 0) {
 
+
                     $('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
 
                     $('thead').children().children().children().children().unwrap().wrap("<span/>");
@@ -55,13 +56,13 @@ To implement
                     $(".pit thead tr").append('<th id="professor">Professor</th>');
 
                     $('#professor').tooltipster({
-                        content: "Average quality of professor. Higher is better."
+                        content: "Average quality of professor; higher is better."
                     });
                     $('#quality').tooltipster({
-                        content: "Average quality of course. Higher is better."
+                        content: "Average quality of course; higher is better."
                     });
                     $('#difficulty').tooltipster({
-                        content: "Difficulty of course. Lower is better."
+                        content: "Difficulty of course; lower is better."
                     });
 
                     var courseList = $('.pit tbody').children();
@@ -89,7 +90,6 @@ To implement
 
                         if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
 
-                            console.log('yo');
                             $(that).append("<td>" + '' + "</td>");
                             $(that).append("<td>" + '' + "</td>");
                             $(that).append("<td>" + '' + "</td>");
@@ -143,7 +143,7 @@ To implement
                             9: {
                                 sorter: "digit",
                                 string: "bottom"
-                            }, // non-numeric content is treated as a MAX value
+                            }, // non - numeric content is treated as a MAX value
                             10: {
                                 sorter: "digit",
                                 string: "bottom"
