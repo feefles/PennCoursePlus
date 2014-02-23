@@ -20,6 +20,8 @@ To implement
     5. Quality to ease ratio
     6. Fix "NA" rating
     7. double countring for sectors and foundation
+    8. Make PCR headings more clear
+    9. don't check recitations
 */
 
     var readyStateCheckInterval = setInterval(function() {
@@ -48,10 +50,19 @@ To implement
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Quality</th>');
                     // $(".pitDarkDataTable thead tr").append('<th style="background-color: #666666;font-weight: bold; color:#dcdcdc;">Professor</th>');
 
-                    $(".pit thead tr").append('<th>Difficulty</th>');
-                    $(".pit thead tr").append('<th>Quality</th>');
-                    $(".pit thead tr").append('<th>Professor</th>');
+                    $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
+                    $(".pit thead tr").append('<th id="quality">Quality</th>');
+                    $(".pit thead tr").append('<th id="professor">Professor</th>');
 
+                    $('#professor').tooltipster({
+                        content: "Average quality of professor. Higher is better."
+                    });
+                    $('#quality').tooltipster({
+                        content: "Average quality of course. Higher is better."
+                    });
+                    $('#difficulty').tooltipster({
+                        content: "Difficulty of course. Lower is better."
+                    });
 
                     var courseList = $('.pit tbody').children();
                     // var ratings = require('./ratings');
@@ -65,25 +76,42 @@ To implement
                         var inst = $(this).find('td:nth-child(4)').text().toLowerCase();
                         inst = inst.replace(/\./g, '');
 
+                        //$('body').append('<div id="pageTwo"></div>');
+
+                        // $("#pageTwo").load("https://pennintouch.apps.upenn.edu/pennInTouch/jsp/fast2.do?fastButtonId=R1U83DVL");
+
 
                         var courseId = courseId.trim();
                         courseId = courseId.slice(0, -4).replace(/\s/g, '');
                         courseDept = courseId.slice(0, -4).toLowerCase();
 
-                        $item = $.getJSON(chrome.extension.getURL('src/config/ratings.json'),
-                            function(ratings) {
-                                console.log(ratings[courseId]);
-                            });
+
+                        // console.log(rate);
                         // console.log(ratings[courseId]);
                         // split = getRating(split);
-                        // $.ajax({
-                        //     type: 'GET',
-                        //     url: 'http://api.penncoursereview.com/v1/depts/' + courseDept + '/reviews?token=qL_UuCVxRBUmjWbkCdI554grLjRMPY',
-                        //     dataType: 'json',
-                        //     async: false
-                        // }).done(function(data) {
-                        //     console.log(ratings[courseId]);
-                        //     if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
+
+                        if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
+
+                            console.log('yo');
+                            $(that).append("<td>" + '' + "</td>");
+                            $(that).append("<td>" + '' + "</td>");
+                            $(that).append("<td>" + '' + "</td>");
+
+
+                        } else {
+                            $item = $.getJSON(chrome.extension.getURL('src/config/ratings.json'),
+                            function(ratings) {
+                                $(that).append("<td>" + ratings[courseId]['difficulty'] + "</td>");
+                                $(that).append("<td>" + ratings[courseId]['quality'] + "</td>");
+                            });
+
+                        //     $.ajax({
+                        //         type: 'GET',
+                        //         url: 'http://api.penncoursereview.com/v1/depts/' + courseDept + '/reviews?token=qL_UuCVxRBUmjWbkCdI554grLjRMPY',
+                        //         dataType: 'json',
+                        //         async: false
+                        //     }).done(function(data) {
+
                         //         var classes = data.result.values;
                         //         var qualityavg = 0;
                         //         var difficultyavg = 0;
@@ -124,16 +152,14 @@ To implement
                         //         }
 
 
-                        //         $(that).append("<td>" + difficultyavg + "</td>");
-                        //         $(that).append("<td>" + qualityavg + "</td>");
-                        //         $(that).append("<td>" + profavg + "</td>");
-                        //     } else {
-                        //         $(that).append("<td>" + '' + "</td>");
-                        //         $(that).append("<td>" + '' + "</td>");
-                        //         $(that).append("<td>" + '' + "</td>");
-                        //     }
+                                // $(that).append("<td>" + rate['difficulty'] + "</td>");
+                                // $(that).append("<td>" + rate['quality'] + "</td>");
+                                // $(that).append("<td>" + profavg + "</td>");
 
-                        });
+                        //     });
+                        }
+
+
                     });
 
 
@@ -146,7 +172,7 @@ To implement
                             8: {
                                 sorter: "digit",
                                 string: "bottom"
-                            }, // sort empty cells to the top
+                            },
                             9: {
                                 sorter: "digit",
                                 string: "bottom"
@@ -156,7 +182,7 @@ To implement
                                 string: "bottom"
                             } // non-numeric content is treated as a MIN value
                         },
-                        // theme: "dropbox"
+                        // theme: "default"
                     });
 
 
