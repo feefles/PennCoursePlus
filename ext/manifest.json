@@ -9,7 +9,8 @@
     },
     "default_locale": "en",
     "permissions": [
-        "https://pennintouch.apps.upenn.edu/*"
+        "https://pennintouch.apps.upenn.edu/*", 
+        "<all_urls>"
     ],
     "content_scripts": [{
         "matches": [
@@ -23,7 +24,11 @@
             "https://pennintouch.apps.upenn.edu/*"
         ],
         "js": [
-            "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "src/inject/inject.js"
+            "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", 
+            "src/inject/inject.js"
         ]
-    }]
+    }],
+
+    "web_accessible_resources":
+    ["src/config/ratings.json"]
 }
