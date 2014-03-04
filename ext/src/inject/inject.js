@@ -39,8 +39,6 @@ To implement
                     $(".pit thead tr").append('<th id="quality">Quality</th>');
                     //$(".pit thead tr").append('<th id="professor">Professor</th>');
 
-
-
                 
                     //$('#professor').tooltipster({
                     //  content: "Average quality of professor; higher is better."
@@ -131,16 +129,7 @@ To implement
 
 
                 }
-                $('.pitDarkDataTable').show();
-
-                function css(selector, property, value) {
-                    for (var i=0; i<document.styleSheets.length;i++) {//Loop through all styles
-                        //Try add rule
-                        try { document.styleSheets[i].insertRule(selector+ ' {'+property+':'+value+'}', document.styleSheets[i].cssRules.length);
-                        } catch(err) {try { document.styleSheets[i].addRule(selector, property+':'+value);} catch(err) {}}//IE
-                    }
-                }
-                css('.pitDarkDataTable', 'display', 'inline !important');
+                 document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
 
             }
         }
