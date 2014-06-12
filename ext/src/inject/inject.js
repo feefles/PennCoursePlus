@@ -37,7 +37,7 @@ To implement
                     //adds columns to table
                     $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
                     $(".pit thead tr").append('<th id="quality">Quality</th>');
-                    //$(".pit thead tr").append('<th id="professor">Professor</th>');
+                    $(".pit thead tr").append('<th id="professor">Professor</th>');
 
                 
                     //$('#professor').tooltipster({
@@ -49,62 +49,134 @@ To implement
                     $('#difficulty').tooltipster({
                         content: "Difficulty of course; lower is better."
                     });
+                    $('#professor').tooltipster({
+                        content: "Quality of Professor of course; higher is better."
+                    });
 
                     //fetches all courses in the course table
                     var courseList = $('.pit tbody').children();
-
-                    //iterates through all courses in table      
-                    $(courseList).each(function() { 
-
-                        var that = this;
-                        var courseId = $(this).find('td:first').text(); //grabs course name from table
-                        var courseType = $(this).find('td:nth-child(3)').text(); //grabs course type (e.g. lecture, recitation)
-                        
-                        //sanitizes course information from table for lookup in JSON file
-                        var inst = $(this).find('td:nth-child(4)').text().toLowerCase(); 
-                        inst = inst.replace(/\./g, '');
-                        var courseId = courseId.trim();
-                        courseId = courseId.slice(0, -4).replace(/\s/g, '');
-                        courseDept = courseId.slice(0, -4).toLowerCase();
+                    $(courseList).each(function(){
+                    var that = this;
+                    var courseId = $(this).find('td:nth-child(1)').text();
+                    var courseType = $(this).find('td:nth-child(3)').text();
+                    var inst = $(this).find('td:nth-child(4)').text().toLowerCase();
 
 
-                        if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
-                            //no ratings for recitations and laboratories 
-                            $(that).append("<td>" + '' + "</td>");
-                            $(that).append("<td>" + '' + "</td>");
-                            // $(that).append("<td>" + '' + "</td>");
+
+                    courseId = courseId.trim();
+                    courseId = courseId.slice(0,-4).replace(/\s/g,''); 
+                    courseDept = courseId.slice(0,-4).toLowerCase();
+                    // split = getRating(split);
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://api.penncoursereview.com/v1/depts/'+courseDept+'/reviews?token=qL_UuCVxRBUmjWbkCdI554grLjRMPY',
+                        dataType: 'json'
+                    }).done(function(data) {
+                        if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
+                            var classes = data.result.values;
+                            var qualityavg = 0;
+                            var difficultyavg = 0;
+                            var numcourses = 0;
+
+                            profavg = 0;
+                            numprofcourses = 0;
+                            classes.forEach(function(name) {
+                                var instructor = name.instructor.name.toLowerCase();
+                                if (instructor.trim() == inst.trim()) {
+                                    profavg += parseFloat(name.ratings.rInstructorQuality);
+                                    numprofcourses++;
+                                }
 
 
-                        } else {
 
-
-                            //gets rating data for each course
-                            $item = $.getJSON(chrome.extension.getURL('src/config/ratings.json'),
-                                function(ratings) {
-                                    $(that).append("<td>" + ratings[courseId].difficulty + "</td>");
-                                    $(that).append("<td>" + ratings[courseId].quality + "</td>");
-
-                                });
-
-                            $.ajax({
-                                dataType: "json",
-                                url: chrome.extension.getURL('src/config/ratings.json'),
-                                async: false
-                            }).done(function(data) {
-                                if (data[courseId] !== undefined) { //adds course ratings to table
-                                    $(that).append("<td>" + data[courseId].difficulty + "</td>");
-                                    $(that).append("<td>" + data[courseId].quality + "</td>");
-                                } else { //courses with no available data will be given value of "n/a"
-                                    $(that).append("<td>" + "N/A" + "</td>");
-                                    $(that).append("<td>" + "N/A" + "</td>");
+                                var alias = name.section.primary_alias.trim().slice(0,-4);
+                                alias = alias.replace(/\s/g,'');
+                                if (courseId == alias) {
+                                    qualityavg+=parseFloat(name.ratings.rCourseQuality);
+                                    difficultyavg+=parseFloat(name.ratings.rDifficulty);
+                                    numcourses++;
                                 }
                             });
-
-
+                            qualityavg = (qualityavg/numcourses).toFixed(2);
+                            difficultyavg = (difficultyavg/numcourses).toFixed(2);
+                            profavg = (profavg/numprofcourses).toFixed(2);
+                            if (isNaN(qualityavg)) {
+                                qualityavg = "N/A";
+                            }
+                            if (isNaN(difficultyavg)) {
+                                difficultyavg = "N/A";
+                            }
+                            if (isNaN(profavg)) {
+                                profavg = "N/A";
+                            }
+                            
+                                $(that).append("<td>"+difficultyavg+"</td>");
+                                $(that).append("<td>"+qualityavg+"</td>");
+                                $(that).append("<td>"+profavg+ "</td>");
                         }
+                        else {
+                        $(that).append("<td>"+" "+"</td>");
+                        $(that).append("<td>"+" "+"</td>");
+                        $(that).append("<td>"+" "+ "</td>");
+                        }
+                    
+                     });
+                });
 
 
-                    });
+
+                    //iterates through all courses in table      
+                    // $(courseList).each(function() { 
+
+                    //     var that = this;
+                    //     var courseId = $(this).find('td:first').text(); //grabs course name from table
+                    //     var courseType = $(this).find('td:nth-child(3)').text(); //grabs course type (e.g. lecture, recitation)
+                        
+                    //     //sanitizes course information from table for lookup in JSON file
+                    //     var inst = $(this).find('td:nth-child(4)').text().toLowerCase(); 
+                    //     inst = inst.replace(/\./g, '');
+                    //     courseId = courseId.trim();
+                    //     courseId = courseId.slice(0, -4).replace(/\s/g, '');
+                    //     courseDept = courseId.slice(0, -4).toLowerCase();
+
+
+                    //     if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
+                    //         //no ratings for recitations and laboratories 
+                    //         $(that).append("<td>" + '' + "</td>");
+                    //         $(that).append("<td>" + '' + "</td>");
+                    //         // $(that).append("<td>" + '' + "</td>");
+
+
+                    //     } else {
+
+
+                    //         //gets rating data for each course
+                    //         $item = $.getJSON(chrome.extension.getURL('src/config/ratings.json'),
+                    //             function(ratings) {
+                    //                 $(that).append("<td>" + ratings[courseId].difficulty + "</td>");
+                    //                 $(that).append("<td>" + ratings[courseId].quality + "</td>");
+
+                    //             });
+
+                    //         $.ajax({
+                    //             dataType: "json",
+                    //             url: chrome.extension.getURL('src/config/ratings.json'),
+                    //             async: false
+                    //         }).done(function(data) {
+                    //             if (data[courseId] !== undefined) { //adds course ratings to table
+                    //                 $(that).append("<td>" + data[courseId].difficulty + "</td>");
+                    //                 $(that).append("<td>" + data[courseId].quality + "</td>");
+                    //             } else { //courses with no available data will be given value of "n/a"
+                    //                 $(that).append("<td>" + "N/A" + "</td>");
+                    //                 $(that).append("<td>" + "N/A" + "</td>");
+                    //             }
+                    //         });
+
+
+                    //     }
+
+
+                    // });
 
                     //calls the tablesorter jquery plugin to allow for sorting of the course results
 
