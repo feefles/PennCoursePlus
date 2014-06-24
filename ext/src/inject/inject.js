@@ -1,4 +1,18 @@
-chrome.extension.sendMessage({}, function(response) {
+
+// if (window.location.href.indexOf("pennintouch.apps.upenn.edu") > -1) {
+//             var $button = $('<input type="button" value="classes" />');
+//             $button.appendTo($('body'));
+
+//             $button.on('click', function() {
+//                 console.log(chrome);
+
+//                window.create({'url': 'schedule.html', 'type': 'popup'}, function(window) {
+//                });
+
+//             });
+// }
+
+
 
     /*
 To implement
@@ -13,13 +27,36 @@ To implement
     9. don't check recitations
 */
 
+//keep checking if state is ready
     var readyStateCheckInterval = setInterval(function() {
         //checks if we are on Penn InTouch website
-        if (window.location.href.indexOf("pennintouch.apps.upenn.edu") > -1) {
+        // if (window.location.href.indexOf("pennintouch.apps.upenn.edu") > -1) {
 
 
             if (document.readyState === "complete") {
                 clearInterval(readyStateCheckInterval);
+
+                var $button = $('<input type="button" value="classes" />');
+                $button.appendTo($('body'));
+
+            $.ajax({
+                url: "https://esb.isc-seo.upenn.edu/8091/open_data/course_info/ACCT/101",
+                type: 'GET',
+                crossDomain:true,
+                dataType: "json",
+                headers: {
+            "Authorization-Bearer": 'UPENN_OD_emtz_1000643',
+            "Authorization-Token": 'o448e5mnbutjcji5ufofo630ur'
+                }
+                
+            });
+
+
+                var $courseCart = $('.studentRightRailTableData .fastButtonLinkText');
+                console.log($courseCart.length);
+                for (var i = 0; i < $courseCart.length; i++) {
+                    console.log($courseCart[i].innerHTML);
+                }
 
 
                 var title = $(document).find("title").text(); //grabs title of current page
@@ -72,6 +109,7 @@ To implement
                         url: 'http://api.penncoursereview.com/v1/depts/'+courseDept+'/reviews?token=qL_UuCVxRBUmjWbkCdI554grLjRMPY',
                         dataType: 'json'
                     }).done(function(data) {
+                        console.log(data);
                         if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
                             var classes = data.result.values;
                             var qualityavg = 0;
@@ -114,6 +152,7 @@ To implement
                                 $(that).append("<td>"+qualityavg+"</td>");
                                 $(that).append("<td>"+profavg+ "</td>");
                         }
+                        
                         else {
                         $(that).append("<td>"+" "+"</td>");
                         $(that).append("<td>"+" "+"</td>");
@@ -123,62 +162,6 @@ To implement
                      });
                 });
 
-
-
-                    //iterates through all courses in table      
-                    // $(courseList).each(function() { 
-
-                    //     var that = this;
-                    //     var courseId = $(this).find('td:first').text(); //grabs course name from table
-                    //     var courseType = $(this).find('td:nth-child(3)').text(); //grabs course type (e.g. lecture, recitation)
-                        
-                    //     //sanitizes course information from table for lookup in JSON file
-                    //     var inst = $(this).find('td:nth-child(4)').text().toLowerCase(); 
-                    //     inst = inst.replace(/\./g, '');
-                    //     courseId = courseId.trim();
-                    //     courseId = courseId.slice(0, -4).replace(/\s/g, '');
-                    //     courseDept = courseId.slice(0, -4).toLowerCase();
-
-
-                    //     if (courseType.trim() == 'Recitation' || courseType.trim() == 'Laboratory') {
-                    //         //no ratings for recitations and laboratories 
-                    //         $(that).append("<td>" + '' + "</td>");
-                    //         $(that).append("<td>" + '' + "</td>");
-                    //         // $(that).append("<td>" + '' + "</td>");
-
-
-                    //     } else {
-
-
-                    //         //gets rating data for each course
-                    //         $item = $.getJSON(chrome.extension.getURL('src/config/ratings.json'),
-                    //             function(ratings) {
-                    //                 $(that).append("<td>" + ratings[courseId].difficulty + "</td>");
-                    //                 $(that).append("<td>" + ratings[courseId].quality + "</td>");
-
-                    //             });
-
-                    //         $.ajax({
-                    //             dataType: "json",
-                    //             url: chrome.extension.getURL('src/config/ratings.json'),
-                    //             async: false
-                    //         }).done(function(data) {
-                    //             if (data[courseId] !== undefined) { //adds course ratings to table
-                    //                 $(that).append("<td>" + data[courseId].difficulty + "</td>");
-                    //                 $(that).append("<td>" + data[courseId].quality + "</td>");
-                    //             } else { //courses with no available data will be given value of "n/a"
-                    //                 $(that).append("<td>" + "N/A" + "</td>");
-                    //                 $(that).append("<td>" + "N/A" + "</td>");
-                    //             }
-                    //         });
-
-
-                    //     }
-
-
-                    // });
-
-                    //calls the tablesorter jquery plugin to allow for sorting of the course results
 
                     $(".pit").tablesorter({
                         headers: {
@@ -204,6 +187,5 @@ To implement
                  document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
 
             }
-        }
-    }, 10);
-});
+        // }
+    }, 50);

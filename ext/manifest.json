@@ -10,23 +10,31 @@
     "default_locale": "en",
     "permissions": [
         "https://pennintouch.apps.upenn.edu/*",
-        "<all_urls>"
+        "tabs",
+        "windows"
     ],
+    // "browser_action": {
+    //     "default_popup": "schedule.html"
+    // },
+
+    // "background": {
+    //     "persistent":false, 
+    //     "scripts" : [
+    //             "src/inject/inject.js"
+    //         ]
+    // }
     "content_scripts": [{
         "matches": [
             "https://pennintouch.apps.upenn.edu/*"
         ],
         "css": [
             "src/inject/inject.css", "css/theme.default.css", "css/tooltipster.css", "css/tooltipster-light.css"
-        ]
-    }, {
+        ],
         "matches": [
             "https://pennintouch.apps.upenn.edu/*"
         ],
         "js": [
             "js/jquery/jquery.min.js", "js/jquery/jquery.tablesorter.js", "js/jquery/tooltip.js", "src/inject/inject.js"
         ]
-    }],
-
-    "web_accessible_resources": ["src/config/ratings.json"]
+    }]
 }
