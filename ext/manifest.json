@@ -1,6 +1,6 @@
 {
     "name": "PennCoursePlus",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "manifest_version": 2,
     "description": "Choosing courses has never been easier",
     "homepage_url": "http://penncourseplus.com",
@@ -18,7 +18,7 @@
     // },
 
     // "background": {
-    //     "persistent":false, 
+    //     "persistent":false,
     //     "scripts" : [
     //             "src/inject/inject.js"
     //         ]
