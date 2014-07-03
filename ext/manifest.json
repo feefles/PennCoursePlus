@@ -13,16 +13,6 @@
         "tabs",
         "windows"
     ],
-    // "browser_action": {
-    //     "default_popup": "schedule.html"
-    // },
-
-    // "background": {
-    //     "persistent":false,
-    //     "scripts" : [
-    //             "src/inject/inject.js"
-    //         ]
-    // }
     "content_scripts": [{
         "matches": [
             "https://pennintouch.apps.upenn.edu/*"
