@@ -188,40 +188,75 @@ To implement
                  document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
 
             if (firstWord == 'Grades') { //checks if user is on the course search page
-              console.log('grades page');
+
+
+              var gradeToGPA = function(grade) {
+                grade = grade.trim();
+                if (grade == "A+"){
+                  return 4.0;
+                } else if (grade == "A"){
+                  return 4.0;
+                } else if (grade == "A-"){
+                  return 3.7;
+                } else if (grade == "B+"){
+                  return 3.3;
+                } else if (grade == "B"){
+                  return 3.0;
+                } else if (grade == "B-"){
+                  return 2.7;
+                } else if (grade == "C+"){
+                  return 2.3;
+                } else if (grade == "C"){
+                  return 2.0;
+                } else if (grade == "C-"){
+                  return 1.7;
+                } else if (grade == "D+"){
+                  return 1.3;
+                } else if (grade == "D"){
+                  return 1.0;
+                } else if (grade == "F"){
+                  return 0.0;
+                } else {
+                  return 0.0;
+                }
+              };
 
 
               var gradeCells = $(".pitDarkDataTable tbody tr td:nth-child(4)");
               gradeCells.each(function( index ){
                 if ($( this ).text().trim()==""){
-                $( this ).append('<td id="gradeInput">' +
-                '<select><option>A+</option><option>A</option><option>A-</option>'+
-                '<option>B+</option><option>B</option>  <option>B-</option>'+
-                '<option>C+</option><option>C</option><option>C-</option>'+
-                '<option>D+</option><option>D</option><option>F</option></select>'+
-                '</td>');}
+                  $( this ).addClass("emptyGrade");
+                  }
+                else{
+                  $( this ).addClass("nonEmptyGrade");
+                }
               });
 
 
-
-
-
-              /*
-              //formats table so it can be sorted using TableSorter plugin
-              $('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
-              $('thead').children().children().children().children().unwrap().wrap("<span/>");
-              $('.pitDarkDataTable').children().unwrap().wrapAll("<table class='tablesorter pitDarkDataTable'/>");
-              $('.pit tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
-
-
-              //adds columns to table
-              $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
-              $(".pit thead tr").append('<th id="quality">Quality</th>');
-              $(".pit thead tr").append('<th id="professor">Professor</th>');
-              */
-
-
+              $(".emptyGrade").append('<td class="gradeInput">' +
+                '<select><option disabled selected></option>'+
+                '<option>A+</option><option>A</option><option>A-</option>'+
+                '<option>B+</option><option>B</option>  <option>B-</option>'+
+                '<option>C+</option><option>C</option><option>C-</option>'+
+                '<option>D+</option><option>D</option><option>F</option></select>'+
+                '</td>');
             }
+            var grades = [];
+            $(".nonEmptyGrade").each(function( index ){
+              grades.push((gradeToGPA($( this ).text())));
+            });
+            console.log(grades);
+            var sum = 0;
+            for (var i = 0; i<grades.length; i++){
+              sum += grades[i];
+            }
+            var avg = sum/grades.length;
+            console.log(avg);
+
+        $(document).on('change', '.gradeInput', function(e) {
+    console.log(this.options[e.target.selectedIndex].text;
+  });
+
 
             }
         // }
