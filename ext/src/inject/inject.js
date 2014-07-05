@@ -48,7 +48,7 @@ To implement
             "Authorization-Bearer": 'UPENN_OD_emtz_1000643',
             "Authorization-Token": 'o448e5mnbutjcji5ufofo630ur'
                 }
-                
+
             });
 
 
@@ -60,10 +60,11 @@ To implement
 
 
                 var title = $(document).find("title").text(); //grabs title of current page
+                var firstWord = title.split(' ')[0]; //grabs second word of the title
                 var secondWord = title.split(' ')[1]; //grabs second word of the title
 
                 if (secondWord == 'Search') { //checks if user is on the course search page
-                    
+
                     //formats table so it can be sorted using TableSorter plugin
                     $('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
                     $('thead').children().children().children().children().unwrap().wrap("<span/>");
@@ -76,7 +77,7 @@ To implement
                     $(".pit thead tr").append('<th id="quality">Quality</th>');
                     $(".pit thead tr").append('<th id="professor">Professor</th>');
 
-                
+
                     //$('#professor').tooltipster({
                     //  content: "Average quality of professor; higher is better."
                     //});
@@ -101,7 +102,7 @@ To implement
 
 
                     courseId = courseId.trim();
-                    courseId = courseId.slice(0,-4).replace(/\s/g,''); 
+                    courseId = courseId.slice(0,-4).replace(/\s/g,'');
                     courseDept = courseId.slice(0,-4).toLowerCase();
                     // split = getRating(split);
                     $.ajax({
@@ -147,18 +148,18 @@ To implement
                             if (isNaN(profavg)) {
                                 profavg = "N/A";
                             }
-                            
+
                                 $(that).append("<td>"+difficultyavg+"</td>");
                                 $(that).append("<td>"+qualityavg+"</td>");
                                 $(that).append("<td>"+profavg+ "</td>");
                         }
-                        
+
                         else {
                         $(that).append("<td>"+" "+"</td>");
                         $(that).append("<td>"+" "+"</td>");
                         $(that).append("<td>"+" "+ "</td>");
                         }
-                    
+
                      });
                 });
 
@@ -173,18 +174,22 @@ To implement
                                 string: "bottom" //all non-numeric values will be pushed below sorted results
                             },
                             9: {
-                                sorter: "digit", 
+                                sorter: "digit",
                                 string: "bottom"
-                            }, 
+                            },
                         },
                         // theme: "default"
                     });
-                    
+
                     $('.pit').show();
 
 
                 }
                  document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
+
+              if (firstWord == 'Grades') { //checks if user is on the course search page
+                console.log('grades page');
+              }
 
             }
         // }
