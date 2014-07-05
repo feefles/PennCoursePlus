@@ -187,9 +187,7 @@ To implement
                 }
                  document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
 
-              if (firstWord == 'Grades') { //checks if user is on the course search page
-                console.log('grades page');
-              }
+            
 
             }
         // }
