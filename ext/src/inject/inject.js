@@ -189,6 +189,38 @@ To implement
 
             if (firstWord == 'Grades') { //checks if user is on the course search page
               console.log('grades page');
+
+
+              var gradeCells = $(".pitDarkDataTable tbody tr td:nth-child(4)");
+              gradeCells.each(function( index ){
+                if ($( this ).text().trim()==""){
+                $( this ).append('<td id="gradeInput">' +
+                '<select><option>A+</option><option>A</option><option>A-</option>'+
+                '<option>B+</option><option>B</option>  <option>B-</option>'+
+                '<option>C+</option><option>C</option><option>C-</option>'+
+                '<option>D+</option><option>D</option><option>F</option></select>'+
+                '</td>');}
+              });
+
+
+
+
+
+              /*
+              //formats table so it can be sorted using TableSorter plugin
+              $('.pitDarkDataTable tr:first').unwrap().wrap("<thead/>");
+              $('thead').children().children().children().children().unwrap().wrap("<span/>");
+              $('.pitDarkDataTable').children().unwrap().wrapAll("<table class='tablesorter pitDarkDataTable'/>");
+              $('.pit tr:nth-child(2)').nextUntil(".pitDarkDataTable tr:last").andSelf().wrapAll("<tbody/>");
+
+
+              //adds columns to table
+              $(".pit thead tr").append('<th id="difficulty">Difficulty</th>');
+              $(".pit thead tr").append('<th id="quality">Quality</th>');
+              $(".pit thead tr").append('<th id="professor">Professor</th>');
+              */
+
+
             }
 
             }
