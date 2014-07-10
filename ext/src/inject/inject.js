@@ -187,9 +187,10 @@ To implement
                 }
                  document.styleSheets[0].insertRule('.pitDarkDataTable'+ ' {display: inline !important}', 0)
 
-            if (firstWord == 'Grades') { //checks if user is on the course search page
+            if (firstWord == 'Grades') { //checks if user is on the grades page
 
 
+              //inputs grade, outputs corresponding GPA
               var gradeToGPA = function(grade) {
                 grade = grade.trim();
                 if (grade == "A+"){
@@ -221,7 +222,7 @@ To implement
                 }
               };
 
-
+              //tags classes with grades and classes without
               var gradeCells = $(".pitDarkDataTable tbody tr td:nth-child(4)");
               gradeCells.each(function( index ){
                 if ($( this ).text().trim()==""){
@@ -233,30 +234,71 @@ To implement
               });
 
 
-              $(".emptyGrade").append('<td class="gradeInput">' +
-                '<select><option disabled selected></option>'+
-                '<option>A+</option><option>A</option><option>A-</option>'+
-                '<option>B+</option><option>B</option>  <option>B-</option>'+
-                '<option>C+</option><option>C</option><option>C-</option>'+
-                '<option>D+</option><option>D</option><option>F</option></select>'+
-                '</td>');
+
+            //creates the dictionary for classes currently being taken
+            var classDict = {};
+
+            //adds dropdows to select grades for current classes
+            $(".emptyGrade").each(function ( index ){
+              var classDropDown = $( this ).prev().prev().text(); //gets name of class
+              var classDropDown = classDropDown.replace(/ /g,''); //removes whitespace from name
+              $( this ).append('<td class="gradeInputCell">' +
+                  '<select class="gradeInput" id="'+classDropDown+'"><option disabled selected></option>'+
+                  '<option value="4.0">A+</option><option value="4.0">A</option><option value="3.7">A-</option>'+
+                  '<option value="3.3">B+</option><option value="3.0">B</option>  <option value="2.7">B-</option>'+
+                  '<option value="2.3">C+</option><option value="2.0">C</option><option value="1.7">C-</option>'+
+                  '<option value="1.3">D+</option><option value="1.0">D</option><option value="0">F</option></select>'+
+                  '</td>');
+              classDict[classDropDown]; //adds class to dict
+
+            });
+
             }
-            var grades = [];
+            var gradesCum = []; //array of GPA grades for classes already taken
             $(".nonEmptyGrade").each(function( index ){
-              grades.push((gradeToGPA($( this ).text())));
+              gradesCurr.push((gradeToGPA($( this ).text())));
             });
             console.log(grades);
-            var sum = 0;
-            for (var i = 0; i<grades.length; i++){
-              sum += grades[i];
+            var sumCum = 0;
+            for (var i = 0; i<gradesCum.length; i++){
+              sumCum += grades[i];
             }
-            var avg = sum/grades.length;
-            console.log(avg);
+            var avgCum = sumCum/gradesCum.length; //calcualtes cumulative GPA, excluding current classes
+            console.log(avgCum);
+
+        var avgCurr = ''; //current average GPA
+
+
+        $(".headerRed").append("<br> Cumulative GPA: <span id='cumulative'>"+ avgCum.toFixed(2) +"</span> <br>GPA for current: <span id='current'>"+ avgCurr +" </span><br>Projected GPA: <span id='cumulative'></span>");
+
 
         $(document).on('change', '.gradeInput', function(e) {
-    console.log(this.options[e.target.selectedIndex].text;
+          var currGrades = [];
+          
+          console.log(this.options[e.target.selectedIndex].value);
+          console.log(e.target.id);
+          classDict[e.target.id] = this.options[e.target.selectedIndex].value;
+          console.log(classDict);
+
+          for (var key in classDict) {
+          if (classDict.hasOwnProperty(key)) {
+            console.log(classDict[key]);
+             currGrades.push(classDict[key]);
+           }
+}
+      console.log(currGrades);
+      avgCurr = 0;
+      var sum = 0;
+      for (var i = 0; i<currGrades.length; i++){
+        sum += currGrades[i];
+      }
+      avgCurr = sum/(currGrades.length);
+      console.log(avgCumulative);
+      $("#current").text(avgCurr);
+
   });
 
+      console.log(classDict);
 
             }
         // }
