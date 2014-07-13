@@ -10,9 +10,8 @@
     "default_locale": "en",
     "permissions": [
         "https://pennintouch.apps.upenn.edu/*",
-        "tabs",
         "windows"
-    ],
+            ],
     "content_scripts": [{
         "matches": [
             "https://pennintouch.apps.upenn.edu/*"
