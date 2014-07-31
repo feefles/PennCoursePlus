@@ -37,8 +37,8 @@ var readyStateCheckInterval = setInterval(function() {
     if (document.readyState === "complete") {
         clearInterval(readyStateCheckInterval);
 
-        var $button = $('<input type="button" value="classes" />');
-        $button.appendTo($('body'));
+        // var $button = $('<input type="button" value="classes" />');
+        // $button.appendTo($('body'));
 
 
         // $.ajax({
@@ -107,13 +107,13 @@ var readyStateCheckInterval = setInterval(function() {
                 var that = this;
                 var courseId = $(this).find('td:nth-child(1)').text();
                 var courseType = $(this).find('td:nth-child(3)').text();
-                var inst = $(this).find('td:nth-child(4)').text().toLowerCase();
-
+                var inst = $(this).find('td:nth-child(4)').text().toUpperCase().trim();
+                var lastName = inst.split(" ").pop();
 
 
                 courseId = courseId.trim();
                 courseId = courseId.slice(0, -4).replace(/\s/g, '');
-                courseDept = courseId.slice(0, -4).toLowerCase();
+                courseDept = courseId.slice(0, -4).toUpperCase();
                 // split = getRating(split);
                 // $.ajax({
                 //     type: 'GET',
@@ -172,29 +172,34 @@ var readyStateCheckInterval = setInterval(function() {
                 if (courseType.trim() !== 'Recitation' && courseType.trim() !== 'Laboratory') {
 
                     $.ajax({
-                        url: "http://nodal-pod-640.appspot.com/req",
+                        // url: "http://nodal-pod-640.appspot.com/req",
+                        url: 'http://nodal-pod-640.appspot.com/req',
                         type: 'GET',
                         dataType: 'json',
                         data: {
-                            'class': courseId
+                            'class': courseId,
+                            'prof': lastName.length > 0 ? lastName : '',
+                            'dept': courseDept
                         }
                     }).done(function(data) {
                         var qualityavg = data.quality.toFixed(2);
                         var difficultyavg = data.difficulty.toFixed(2);
+                        var profavg = data.prof.toFixed(2);
                         if (isNaN(qualityavg)) {
                             qualityavg = "N/A";
                         }
                         if (isNaN(difficultyavg)) {
                             difficultyavg = "N/A";
                         }
-                        // if (isNaN(profavg)) {
-                        //     profavg = "N/A";
-                        // }
+                        if (isNaN(profavg) || profavg === '0.00') {
+                            profavg = "N/A";
+                        }
 
 
 
                         $(that).append("<td>" + difficultyavg + "</td>");
                         $(that).append("<td>" + qualityavg + "</td>");
+                        $(that).append("<td>" + profavg + "</td>");
 
                     });
                 } else {
